@@ -1,19 +1,39 @@
 
+import { animals } from './animal';
 import './App.css';
-import oceanImage from './images/ocean.jpg';
-
 
 
 function App() {
+  function displayFact(e){
+    const animal = e.target.alt;
+    const index = Math.floor(Math.random() * animals[animal].facts.length);
+    const funFact = animals[animal].facts[index];
+    const p = document.getElementById('fact');
+   p.innerHTML = funFact;
+}
+const images = [];
+  for(const animal in animals){
+    const image = (
+      <img 
+      onClick={displayFact}
+      key={animal}
+      className= 'animal'
+      alt={animal}
+      src={animals[animal].image}
+      aria-label={animal}
+      role="button"
+      />
+    );
+
+    images.push(image)
+  }
+ 
   return (
     <div className="App">
-
-
-      <header className="App-header">
-        <h1>Click an animal for fun fact</h1>
-      </header>
       <main className="container">
-      <img src={oceanImage} alt="ocean" />
+      <img src="./images/ocean.jpg" alt="ocean" className="background-image" />
+      <p id='fact'></p>
+      <div className="animals">{images}</div>
       </main>
     </div>
   );
